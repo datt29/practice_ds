@@ -1,0 +1,123 @@
+//code for single linked list 
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+
+int info;
+struct node *link;
+};
+void display(struct node *);
+struct node *insert(int,struct node *);
+struct node* insertend(int ,struct node *);
+struct node* insord(int,struct node* );
+void main()
+{
+struct node *first,*second,*third;
+first =(struct node *)malloc(sizeof(struct node));
+second=(struct node *)malloc(sizeof(struct node));
+third=(struct node *)malloc(sizeof(struct node));
+first->info=1;
+first->link=second;
+second->info=2;
+second->link=third;
+third->info=3;
+third->link=NULL;
+
+/*
+printf("%d %d %p\n",first->info,first->link,second);
+printf("%d %d %p\n",second->info,second->link,third);
+*/
+display(first);
+first=insert(25,first);
+first=insertend(30,first);
+first=insord(22,first);
+printf("\n after insertion\n");
+display(first);
+}
+void display(struct node *first)
+{
+struct node *save;
+save=first;
+do
+{
+printf("%d",save->info);
+save=save->link;
+}
+while(save!=NULL);
+
+}
+struct node* insertend(int x,struct node *first)
+{
+struct node *new;
+new=(struct node *)malloc(sizeof(struct node));
+struct node *save;
+new=(struct node *)malloc(sizeof(struct node));
+save = first;
+if(new==NULL)
+{
+printf("overflowed");
+return first;
+}
+else
+{
+new->info=x;
+new->link=NULL;
+
+}
+while(save->link!=NULL)
+{
+save=save->link;
+}
+save->link=new;
+return first;
+
+}
+
+struct node *insert(int x,struct node *first)
+{
+struct node *new;
+new=(struct node *)malloc(sizeof(struct node));
+if(new==NULL)
+{
+printf("Overflowed\n");
+return 0;
+}
+else
+{
+new->info=x;
+new->link=first;
+return new;
+}
+
+}
+struct node* insord(int x,struct node* first)
+{
+struct node *new;
+new=(struct node *)malloc(sizeof(struct node));
+struct node *save;
+save=first;
+new->info=x;
+if(first==NULL)
+{
+new->link=NULL;
+return new;
+}
+else
+{
+if(new->info<=first->info)
+{
+new->link=first;
+return new;
+}
+while(save->link!=NULL&&new->info>=save->link->info)
+{
+save=save->link;
+}
+new->link=save->link;
+save->link=new;
+return first;
+}
+}
