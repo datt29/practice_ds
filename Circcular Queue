@@ -1,0 +1,75 @@
+//Circular enqueue dequeue
+
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+#define MAX 20
+
+void enQueue();
+void deQueue();
+void display();
+
+char cQueue[MAX];
+int rear=-1;
+int front=-1;
+void main()
+{
+   int i;
+   while(1){
+      printf("\n1. Insert\n2. Delete\n3. Display\n4. Exit\n");
+      printf("Enter your choice: ");
+      scanf("%d",&i);
+      switch(i){
+	 case 1: enQueue();
+		 break;
+	 case 2: deQueue();
+		 break;
+	 case 3: display();
+		 break;
+	 case 4: exit(0);
+	 default: printf("Invalid Choice\n");
+      }
+   }
+}
+void enQueue()
+{
+    int val;
+   if((front==0 && rear==MAX-1) ||(front==rear+1)) printf("queue overflow\n");
+   else{
+      if(rear==MAX-1 && front!=0) rear=-1;
+      printf("Insert the element:\n");
+      scanf("\n%d",&val);
+      cQueue[++rear]=val;
+      if(front==-1) front = 0;
+   }
+}
+void deQueue()
+{
+   if(front==-1 && rear==-1) printf("queue underflow\n");
+   else{
+      printf("\nDeleted element : %d\n",cQueue[front++]);
+      if(front==MAX) front = 0;
+      if(front-1==rear) front=rear=-1;
+   }
+}
+void display()
+{
+   if(front==-1)
+      printf("Empty!\n");
+   else{
+      int i=front;
+      printf("\nCircular Queue Elements are : \n");
+      if(front<=rear){
+	 while(i <= rear)
+	    printf("%d\t",cQueue[i++]);
+      }
+      else{
+	 while(i <= MAX-1)
+	    printf("%d\t", cQueue[i++]);
+	 i = 0;
+	 while(i <= rear)
+	    printf("%d\t",cQueue[i++]);
+      }
+   }
+}
