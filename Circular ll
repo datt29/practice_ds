@@ -1,0 +1,188 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *next;
+};
+struct node *head;
+void begininsert();
+void lastinsert();
+void randominsert();
+void begindel();
+void lastdel();
+void display();
+void main()
+{
+int choice=0;
+while(choice!=6)
+{
+
+printf("1.Insert begin\n2.Insert at last\n3.Delete from begin\n4.delete from last\n5.display\n6.exit");
+scanf("%d",&choice);
+switch(choice)
+{
+case 1:
+begininsert();
+break;
+case 2:
+lastinsert();
+break;
+case 3:
+begindel();
+break;
+case 4:
+lastdel();
+break;
+case 5:
+display();
+break;
+case 6:
+exit(0);
+break;
+default:
+printf("enter valid choice");
+}
+}
+}
+void begininsert()
+{
+struct node*ptr,*temp;
+int item;
+ptr=(struct node *)malloc(sizeof(struct node));
+if(ptr==NULL)
+{
+printf("overflowed\n");
+}
+else
+{
+printf("enter node data\n");
+scanf("%d",&item);
+
+ptr->data=item;
+if(head==NULL)
+{
+head=ptr;
+ptr->next=head;
+}
+
+else
+{
+temp=head;
+while(temp->next!=head)
+temp=temp->next;
+ptr->next=ptr;
+head=ptr;
+}
+printf("node inserted\n");
+}
+}
+void lastinsert()
+{
+struct node *ptr,*temp;
+int item;
+ptr=(struct node *)malloc(sizeof(struct node));
+if(ptr==NULL)
+{
+head=ptr;
+ptr->next=head;
+printf("overflowed\n");
+
+}
+else
+{
+printf("enterf data\n");
+scanf("%d",&item);
+ptr->data=item;
+if(head==NULL)
+{
+head=ptr;
+ptr->next=head;
+}
+
+else
+{
+temp=head;
+while(temp->next!=head)
+{
+temp=temp->next;
+}
+temp->next=ptr;
+ptr->next=head;
+}
+printf("node inserted\n");
+
+}
+}
+void begindel()
+{
+struct node *ptr;
+if(head==NULL)
+{
+printf("underflow\n");
+}
+else if(head->next==head)
+{
+head=NULL;
+free(head);
+printf("node deleted\n");
+}
+else
+{
+ptr=head;
+while(ptr->next!=head)
+ptr=ptr->next;
+ptr->next=head->next;
+free(head);
+head=ptr->next;
+printf("\nnode deleted");
+}
+}
+void lastdel()
+{
+struct node *ptr,*preptr;
+if(head==NULL)
+{
+printf("underflow\n");
+}
+else if(head->next==head)
+{
+head=NULL;
+free(head);
+printf("node deleted\n");
+}
+else
+{
+ptr=head;
+while(ptr->next!=head)
+{
+preptr=ptr;
+ptr=ptr->next;
+}
+preptr->next=ptr->next;
+free(ptr);
+printf("node deleted\n");
+
+}
+}
+void display()
+{
+struct node *ptr;
+ptr=head;
+if(head==NULL)
+{
+printf("Empty");
+}
+else
+{
+printf("values are:\n");
+while(ptr->next!=head)
+{
+printf("%d\n",ptr->data);
+ptr=ptr->next;
+}
+
+printf("%d",ptr->data);
+
+}
+}
