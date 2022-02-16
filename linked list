@@ -13,12 +13,14 @@ void display(struct node *);
 struct node *insert(int,struct node *);
 struct node* insertend(int ,struct node *);
 struct node* insord(int,struct node* );
+
 void main()
 {
 struct node *first,*second,*third;
 first =(struct node *)malloc(sizeof(struct node));
 second=(struct node *)malloc(sizeof(struct node));
 third=(struct node *)malloc(sizeof(struct node));
+
 first->info=1;
 first->link=second;
 second->info=2;
